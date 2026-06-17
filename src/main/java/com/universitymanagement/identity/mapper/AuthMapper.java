@@ -11,11 +11,11 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface AuthMapper {
 
-   @Mapping(target = "userId", source = "user.id")
-   @Mapping(target = "email", source = "user.email")
-   @Mapping(target = "fullName", source = "user.fullName")
-   @Mapping(target = "phone", source = "user.phone")
-   @Mapping(target = "roles", source = "roles")
+//   @Mapping(target = "userId", source = "user.id")
+//   @Mapping(target = "email", source = "user.email")
+//   @Mapping(target = "fullName", source = "user.fullName")
+//   @Mapping(target = "phone", source = "user.phone")
+//   @Mapping(target = "roles", source = "roles")
    UserProfileResponse toUserProfileResponse(
            User user,
            List<String> roles

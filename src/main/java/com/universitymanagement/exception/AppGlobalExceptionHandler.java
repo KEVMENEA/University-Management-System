@@ -1,4 +1,5 @@
 package com.universitymanagement.exception;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -38,5 +39,17 @@ public class AppGlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST.getReasonPhrase())
                 .timestamp(Instant.now())
                 .errors(fields).build();
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<?> handleRuntimeException(RuntimeException e){
+        RestErrorResponse<?> restErrorResponse = RestErrorResponse.builder()
+                .message(e.getMessage())
+                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
+                .timestamp(Instant.now())
+                .errors(null)
+                .build();
+        return new ResponseEntity<>(restErrorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

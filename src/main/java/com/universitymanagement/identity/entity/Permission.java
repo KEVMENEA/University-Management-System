@@ -19,7 +19,7 @@ public class Permission extends BaseEntity{
     private Long id;
 
     @Column(name = "permission_name", nullable = false, unique = true)
-    private String ame;
+    private String name;
 
     private String description;
 }

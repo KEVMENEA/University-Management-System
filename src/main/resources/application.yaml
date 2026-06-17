@@ -15,12 +15,12 @@ spring:
 
         provider:
           keycloak:
-            issuer-uri: http://127.0.0.1:8080/realms/university
+            issuer-uri: http://localhost:8080/realms/university
             user-name-attribute: preferred_username
 
       resourceserver:
         jwt:
-          issuer-uri: http://127.0.0.1:8080/realms/university
+          issuer-uri: http://localhost:8080/realms/university
 
   datasource:
     url: jdbc:postgresql://localhost:1681/university
@@ -30,7 +30,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:

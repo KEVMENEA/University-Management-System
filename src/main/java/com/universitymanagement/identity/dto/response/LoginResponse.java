@@ -4,13 +4,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
-@Builder
-public class LoginResponse {
+public record LoginResponse(
+        String accessToken,
+        String refreshToken,
+        String tokenType,
+        Long expiresIn
+) {
 
-    private String accessToken;
-    private String refreshToken;
-    private String tokenType;
-    private Long expiresIn;
+
 }

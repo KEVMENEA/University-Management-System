@@ -13,8 +13,8 @@ import java.util.UUID;
 @MappedSuperclass
 public abstract class AuditableEntity extends BaseEntity{
     @Column(name = "deleted_at")
-    private UUID deletedAt;
+    private LocalDateTime deletedAt;
 
     @Column(name = "deleted_by")
-    private UUID deletedBy;
+    private String deletedBy;
 }

@@ -1,4 +1,7 @@
 package com.universitymanagement.identity.repository;
 
-public class RoleRepository {
+import com.universitymanagement.identity.entity.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RoleRepository extends JpaRepository<Role, Long> {
 }
