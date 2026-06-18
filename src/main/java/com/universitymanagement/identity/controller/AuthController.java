@@ -1,5 +1,6 @@
 package com.universitymanagement.identity.controller;
 
+import com.universitymanagement.identity.dto.request.ChangePasswordRequest;
 import com.universitymanagement.identity.dto.request.LoginRequest;
 import com.universitymanagement.identity.dto.request.LogoutRequest;
 import com.universitymanagement.identity.dto.request.RefreshTokenRequest;
@@ -43,5 +44,10 @@ public class AuthController {
     @GetMapping("/me")
     public UserProfileResponse getCurrentUser() {
         return authService.getCurrentUser();
+    }
+
+    @PutMapping("/change-password")
+    public void changePassword(@Valid @RequestBody ChangePasswordRequest request){
+        authService.changePassword(request);
     }
 }

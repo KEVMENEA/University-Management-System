@@ -1,4 +1,4 @@
-package com.universitymanagement.identity.config;
+package com.universitymanagement.config;
 
 
 import org.keycloak.OAuth2Constants;

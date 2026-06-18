@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "IdentityUser")
 @Table(name = "users")
 public class User extends AuditableEntity{
     @Id
@@ -26,7 +26,7 @@ public class User extends AuditableEntity{
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
     private String phone;
