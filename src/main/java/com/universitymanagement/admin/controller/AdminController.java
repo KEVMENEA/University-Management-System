@@ -41,5 +41,5 @@ public class AdminController {
     public void restoreUser(@PathVariable String id) {
         userManageService.restoreUser(id);
         ResponseEntity.noContent().build();
-    }
+    }   
 }

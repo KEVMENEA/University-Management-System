@@ -1,5 +1,6 @@
 package com.universitymanagement.identity.entity;
 
+import com.universitymanagement.auditing.BasedEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Setter
 @Entity(name = "IdentityUser")
 @Table(name = "users")
-public class User extends AuditableEntity{
+public class User extends BasedEntity {
     @Id
     @Column(name = "user_id")
     private UUID id;
