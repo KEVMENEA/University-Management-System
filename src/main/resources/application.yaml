@@ -1,3 +1,48 @@
+
 spring:
   application:
     name: universitymanagement
+
+
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: 123
+    url: jdbc:postgresql://localhost:5433/uml
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+
+  security:
+    oauth2:
+      authorizationserver:
+        endpoint:
+          issuer-uri: http://localhost:8088/realms/Unversity-Management
+          jwk-set-uri: http://localhost:8088/realms/Unversity-Management/protocol/openid-connect/certs
+
+
+  logging:
+    level:
+      org:
+        springframework:
+          security: DEBUG
+
+  jwt:
+    auth:
+      converter:
+        resource-id: demo
+        principle-attribute: preferred_username
+
+
+server:
+  port: 8072
+
+keycloak:
+  server-url: http://localhost:8088
+  realm: university-management
+  client-id: identity-service
+  client-secret: ap3ZSnolCpB4SQdRWDERN7rIXHcD1Wum
+  username: admin
+  password: admin

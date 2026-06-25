@@ -1,7 +1,13 @@
 package com.universitymanagement.identity.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+@Entity
+@Table(name = "user_roles")
 public class UserRole {
 
     @Id
