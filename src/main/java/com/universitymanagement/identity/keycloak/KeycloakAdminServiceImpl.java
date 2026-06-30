@@ -29,14 +29,14 @@ public class KeycloakAdminServiceImpl  implements KeycloakAdminService{
         user.setEnabled(true);
         user.setUsername(request.getEmail());
         user.setEmail(request.getEmail());
-        user.setFirstName(request.getFullName());
+        user.setLastName(request.getFullName());
+
         user.setEmailVerified(true);
 
-        CredentialRepresentation credential =
-                new CredentialRepresentation();
+        CredentialRepresentation credential = new CredentialRepresentation();
 
         credential.setType(CredentialRepresentation.PASSWORD);
-        credential.setValue(request.getOldPassword());
+        credential.setValue(request.getPassword());
         credential.setTemporary(false);
 
         user.setCredentials(List.of(credential));
@@ -46,6 +46,8 @@ public class KeycloakAdminServiceImpl  implements KeycloakAdminService{
         UsersResource usersResource = realmResource.users();
 
         Response response = usersResource.create(user);
+
+        System.out.println(keycloak.realm(realm).toString());
 
         if (response.getStatus() != 201) {
             throw new RuntimeException(

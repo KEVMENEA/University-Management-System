@@ -11,7 +11,7 @@ import com.universitymanagement.identity.entity.AccountStatus;
 import com.universitymanagement.identity.entity.User;
 import com.universitymanagement.identity.exception.DuplicateResourceException;
 import com.universitymanagement.identity.keycloak.KeycloakAdminService;
-import com.universitymanagement.identity.keycloak.KeycloakTokenService;
+//import com.universitymanagement.identity.keycloak.KeycloakTokenService;
 import com.universitymanagement.identity.repository.UserRepository;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -22,14 +22,14 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final AuthMapper authMapper;
     private final KeycloakAdminService keycloakAdminService;
-    private final KeycloakTokenService keycloakTokenService;
+//    private final KeycloakTokenService keycloakTokenService;
     private final UserMapper userMapper;
 
-    public AuthServiceImpl(UserRepository userRepository, AuthMapper authMapper, KeycloakAdminService keycloakAdminService, KeycloakTokenService keycloakTokenService, UserMapper userMapper) {
+    public AuthServiceImpl(UserRepository userRepository, AuthMapper authMapper, KeycloakAdminService keycloakAdminService, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.authMapper = authMapper;
         this.keycloakAdminService = keycloakAdminService;
-        this.keycloakTokenService = keycloakTokenService;
+//        this.keycloakTokenService = keycloakTokenService;
         this.userMapper = userMapper;
     }
 
@@ -37,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public RegisterResponse register(RegisterRequest request) {
         // Step 1. Validate business rules
-        if(!request.getOldPassword().equals(request.getConfirmPassword())) {
+        if(!request.getPassword().equals(request.getConfirmPassword())) {
             throw new IllegalArgumentException("Password not match");
         }
 

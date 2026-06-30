@@ -17,10 +17,9 @@ spring:
 
   security:
     oauth2:
-      authorizationserver:
-        endpoint:
-          issuer-uri: http://localhost:8088/realms/Unversity-Management
-          jwk-set-uri: http://localhost:8088/realms/Unversity-Management/protocol/openid-connect/certs
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8088/realms/University-Management
 
 
   logging:
@@ -41,8 +40,15 @@ server:
 
 keycloak:
   server-url: http://localhost:8088
-  realm: university-management
+  realm: University-Management
   client-id: identity-service
-  client-secret: ap3ZSnolCpB4SQdRWDERN7rIXHcD1Wum
+  client-secret: b1JQCK70CfqdWguqj0dDn3nvN22QaLvI
   username: admin
   password: admin
+
+
+minio:
+  endpoint: http://localhost:9000
+  access-key: minioadmin
+  secret-key: minioadmin
+  bucket: my-application-bucket

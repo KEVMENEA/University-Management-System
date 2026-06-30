@@ -2,11 +2,9 @@ package com.universitymanagement.identity.keycloak;
 
 
 import com.universitymanagement.identity.auth.dto.request.RegisterRequest;
-import org.springframework.stereotype.Service;
 
 
 public interface KeycloakAdminService {
-
 
     String createUser(RegisterRequest request);
 
