@@ -1,11 +1,15 @@
 package com.universitymanagement.identity.entity;
 
+<<<<<<< HEAD
 import com.universitymanagement.auditing.BasedEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+=======
+import jakarta.persistence.*;
+>>>>>>> origin/main
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,8 +44,8 @@ public class User extends BasedEntity {
     @Column(name = "profile_image_file_id")
     private Long profileImageFileId;
 
-    @Column(name = "account_status")
-    private String accountStatus;
+    @Enumerated(EnumType.STRING)
+    private AccountStatus accountStatus;
 
     @Column(name = "is_active")
     private Boolean isActive;

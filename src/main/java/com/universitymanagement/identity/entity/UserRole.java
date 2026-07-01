@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+<<<<<<< HEAD
 
 @Entity
 @Table(name = "user_roles",
@@ -11,6 +12,12 @@ import lombok.Setter;
                 columnNames = {"user_id", "role_id"}))
 @Getter
 @Setter
+=======
+@Getter
+@Setter
+@Entity
+@Table(name = "user_roles")
+>>>>>>> origin/main
 public class UserRole {
 
     @Id
