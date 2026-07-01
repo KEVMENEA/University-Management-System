@@ -1,9 +1,8 @@
 package com.universitymanagement.identity.dto.response;
 
-import com.universitymanagement.identity.enums.Role;
+import com.universitymanagement.identity.enums.RoleName;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public record CreateUserResponse(
         String email,
@@ -12,6 +11,6 @@ public record CreateUserResponse(
         String lastName,
         String phoneNumber,
         LocalDate dateOfBirth,
-        Role role
+        RoleName role
 ) {
 }

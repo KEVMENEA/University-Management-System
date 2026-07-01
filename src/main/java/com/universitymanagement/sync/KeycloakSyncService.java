@@ -2,7 +2,9 @@ package com.universitymanagement.sync;
 
 
 
-import com.universitymanagement.user.entity.User;
+import com.universitymanagement.identity.entity.User;
+import com.universitymanagement.identity.mapper.UserMapper;
+import com.universitymanagement.identity.repository.IdentityUserRepository;
 import com.universitymanagement.user.mapper.AppUserMapper;
 import com.universitymanagement.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +20,8 @@ import java.util.List;
 public class KeycloakSyncService {
 
     private final Keycloak keycloak;
-    private final UserRepository userRepository;
-    private final AppUserMapper userMapper;
+    private final IdentityUserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Value("${keycloak.realm}")
     private String realm;

@@ -2,7 +2,8 @@ package com.universitymanagement.admin.entity;
 
 
 import com.universitymanagement.auditing.BasedEntity;
-import com.universitymanagement.user.entity.User;
+
+import com.universitymanagement.identity.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

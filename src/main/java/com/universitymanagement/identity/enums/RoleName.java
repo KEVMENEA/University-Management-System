@@ -1,6 +1,6 @@
 package com.universitymanagement.identity.enums;
 
-public enum Role {
+public enum RoleName {
     ADMIN,
     TEACHER,
     STUDENT

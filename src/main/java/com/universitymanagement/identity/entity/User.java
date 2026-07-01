@@ -5,7 +5,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -14,8 +16,11 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "IdentityUser")
 @Table(name = "users")
+
 public class User extends BasedEntity {
     @Id
     @Column(name = "user_id")
@@ -43,4 +48,5 @@ public class User extends BasedEntity {
 
     @Column(name = "last_login")
     private LocalDateTime lastLogin;
+
 }

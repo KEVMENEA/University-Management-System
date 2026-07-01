@@ -7,6 +7,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface AdminRepository extends JpaRepository<Admin, UUID>{
-    Optional<Admin> findByUser_UserId(UUID userId);
+    Optional<Admin> findByUserId(UUID id);
     boolean existsByAdminCode(String adminCode);
 }

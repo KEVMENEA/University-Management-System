@@ -1,4 +1,4 @@
 package com.universitymanagement.identity.repository;
 
-public class PermissionRepository {
+public interface PermissionRepository {
 }

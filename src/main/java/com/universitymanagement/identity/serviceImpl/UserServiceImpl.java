@@ -2,9 +2,10 @@ package com.universitymanagement.identity.serviceImpl;
 
 import com.universitymanagement.identity.dto.request.CreateUserRequest;
 import com.universitymanagement.identity.dto.response.CreateUserResponse;
+import com.universitymanagement.identity.entity.User;
+import com.universitymanagement.identity.mapper.UserMapper;
+import com.universitymanagement.identity.repository.IdentityUserRepository;
 import com.universitymanagement.identity.service.UserService;
-import com.universitymanagement.user.entity.User;
-import com.universitymanagement.user.repository.UserRepository;
 import com.universitymanagement.student.entity.Student;
 import com.universitymanagement.student.repository.StudentRepository;
 import com.universitymanagement.teacher.entity.Teacher;
@@ -18,6 +19,7 @@ import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,14 +31,15 @@ import java.time.Year;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-@Service("identityUserServiceImpl")
+@Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final Keycloak keycloak;
-    private final UserRepository userRepository;
+    private final IdentityUserRepository userRepository;
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
     private final AdminRepository adminRepository;
+    private final UserMapper userMapper;
     @Value("${keycloak.realm}")
     private String realm;
 
@@ -60,56 +63,36 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public CreateUserResponse createUser(CreateUserRequest createUserRequest) {
-        UserRepresentation user = new UserRepresentation();
-        user.setUsername(createUserRequest.email());
-        user.setEmail(createUserRequest.email());
-        user.setFirstName(createUserRequest.firstName());
-        user.setLastName(createUserRequest.lastName());
+
+        if (!createUserRequest.password().equals(createUserRequest.confirmPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Passwords do not match");
+        }
+
+        UserRepresentation user = userMapper.toRepresentation(createUserRequest);
         user.setEmailVerified(true);
-        user.setEnabled(true);
 
         CredentialRepresentation credential = new CredentialRepresentation();
         credential.setType(CredentialRepresentation.PASSWORD);
         credential.setValue(createUserRequest.password());
         credential.setTemporary(false);
-
         user.setCredentials(List.of(credential));
 
-        Response response = keycloak
-                .realm(realm)
-                .users()
-                .create(user);
+        Response response = keycloak.realm(realm).users().create(user);
 
         if (response.getStatus() != 201) {
             String errorBody = response.readEntity(String.class);
             throw new ResponseStatusException(
                     HttpStatusCode.valueOf(response.getStatus()),
-
                     "Failed to create user: " + errorBody);
         }
 
-        String location =
-                response.getHeaderString("Location");
-
-        String userId =
-                location.substring(
-                        location.lastIndexOf('/') + 1
-                );
+        String location = response.getHeaderString("Location");
+        String userId = location.substring(location.lastIndexOf('/') + 1);
 
         try {
             assignRole(userId, createUserRequest.role().name());
 
-            String fullName = (createUserRequest.firstName() + " " + createUserRequest.lastName()).trim();
-
-            User dbUser = User.builder()
-                    .keycloakId(userId)
-                    .email(createUserRequest.email())
-                    .fullName(fullName)
-                    .phone(createUserRequest.phoneNumber())
-                    .isActive(true)
-                    .accountStatus("active")
-                    .build();
-
+            User dbUser = userMapper.toEntityFromRequest(createUserRequest, userId);
             dbUser = userRepository.save(dbUser);
 
             switch (createUserRequest.role()) {
@@ -152,7 +135,6 @@ public class UserServiceImpl implements UserService {
                 createUserRequest.phoneNumber(),
                 createUserRequest.dateOfBirth(),
                 createUserRequest.role()
-
         );
     }
     private String generateCode(String prefix) {

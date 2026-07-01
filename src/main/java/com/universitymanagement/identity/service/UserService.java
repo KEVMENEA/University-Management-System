@@ -6,4 +6,5 @@ import com.universitymanagement.identity.dto.response.CreateUserResponse;
 public interface UserService {
     CreateUserResponse createUser(CreateUserRequest createUserRequest);
     void assignRole(String userId, String roleName);
+
 }

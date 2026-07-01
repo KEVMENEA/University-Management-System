@@ -7,6 +7,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface TeacherRepository extends JpaRepository<Teacher, UUID> {
-    Optional<Teacher> findByUser_UserId(UUID userId);
+    Optional<Teacher> findByUserId(UUID id);
     boolean existsByTeacherCode(String teacherCode);
 }

@@ -1,6 +1,7 @@
 package com.universitymanagement.student.entity;
 
-import com.universitymanagement.user.entity.User;
+
+import com.universitymanagement.identity.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "students")
 public class Student {
@@ -49,11 +51,5 @@ public class Student {
 
     private String graduationStatus = "enrolled";
     private LocalDate graduationDate;
-
-    private LocalDateTime createdAt;
-
-    public Student() {
-        this.createdAt = LocalDateTime.now();
-    }
 
 }

@@ -179,7 +179,7 @@ public class AuthServiceImpl implements AuthService {
     public void changePassword(ChangePasswordRequest request) {
         Jwt jwt = ((JwtAuthenticationToken)
                 SecurityContextHolder.getContext()
-                .getAuthentication())
+                        .getAuthentication())
                 .getToken();
 
         String email = jwt.getClaimAsString("email");

@@ -1,6 +1,7 @@
 package com.universitymanagement.teacher.entity;
 
-import com.universitymanagement.user.entity.User;
+
+import com.universitymanagement.identity.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
