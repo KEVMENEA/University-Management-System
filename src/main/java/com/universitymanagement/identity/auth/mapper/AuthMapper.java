@@ -1,16 +1,14 @@
 package com.universitymanagement.identity.auth.mapper;
 
-import com.universitymanagement.identity.auth.dto.response.UserProfileResponse;
-import com.universitymanagement.identity.entity.User;
+import com.universitymanagement.identity.auth.dto.response.LoginResponse;
+import com.universitymanagement.identity.auth.dto.response.RefreshTokenResponse;
+import com.universitymanagement.identity.auth.keycloak.dto.KeyCloakTokenResponse;
 import org.mapstruct.Mapper;
-
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface AuthMapper {
 
-   UserProfileResponse toUserProfileResponse(
-           User user, List<String> roles
-   );
+   LoginResponse toLoginResponse(KeyCloakTokenResponse response);
+   RefreshTokenResponse toRefreshTokenResponse(KeyCloakTokenResponse response);
 
 }

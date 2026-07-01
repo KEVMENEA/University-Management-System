@@ -9,11 +9,11 @@ import com.universitymanagement.identity.auth.mapper.AuthMapper;
 import com.universitymanagement.identity.auth.mapper.UserMapper;
 import com.universitymanagement.identity.entity.AccountStatus;
 import com.universitymanagement.identity.entity.User;
-import com.universitymanagement.identity.exception.DuplicateResourceException;
-import com.universitymanagement.identity.keycloak.KeycloakAdminService;
+import com.universitymanagement.exception.DuplicateResourceException;
+import com.universitymanagement.identity.auth.keycloak.KeycloakAdminService;
 //import com.universitymanagement.identity.keycloak.KeycloakTokenService;
+import com.universitymanagement.identity.auth.keycloak.KeycloakTokenService;
 import com.universitymanagement.identity.repository.UserRepository;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,14 +22,14 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final AuthMapper authMapper;
     private final KeycloakAdminService keycloakAdminService;
-//    private final KeycloakTokenService keycloakTokenService;
+    private final KeycloakTokenService keycloakTokenService;
     private final UserMapper userMapper;
 
-    public AuthServiceImpl(UserRepository userRepository, AuthMapper authMapper, KeycloakAdminService keycloakAdminService, UserMapper userMapper) {
+    public AuthServiceImpl(UserRepository userRepository, AuthMapper authMapper, KeycloakAdminService keycloakAdminService, KeycloakTokenService keycloakTokenService, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.authMapper = authMapper;
         this.keycloakAdminService = keycloakAdminService;
-//        this.keycloakTokenService = keycloakTokenService;
+        this.keycloakTokenService = keycloakTokenService;
         this.userMapper = userMapper;
     }
 
@@ -71,8 +71,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public LoginResponse exchangeAuthorizationCode(String code, String codeVerifier) {
+        return keycloakTokenService.exchangeAuthorizationCode(code, codeVerifier);
+    }
+
+    @Override
     public LoginResponse login(LoginRequest request) {
-        return null;
+
+        return k;
     }
 
     @Override

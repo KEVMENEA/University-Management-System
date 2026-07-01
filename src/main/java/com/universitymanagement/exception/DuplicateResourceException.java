@@ -1,4 +1,4 @@
-package com.universitymanagement.identity.exception;
+package com.universitymanagement.exception;
 
 public class DuplicateResourceException extends RuntimeException {
     public DuplicateResourceException(String message) {
