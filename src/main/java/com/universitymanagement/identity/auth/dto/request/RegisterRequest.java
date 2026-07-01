@@ -1,3 +1,9 @@
+<<<<<<< HEAD:src/main/java/com/universitymanagement/identity/dto/request/RegisterRequest.java
+package com.universitymanagement.identity.dto.request;
+
+public record RegisterRequest() {
+}
+=======
 package com.universitymanagement.identity.auth.dto.request;
 
 import jakarta.validation.constraints.*;
@@ -27,3 +33,4 @@ public class RegisterRequest {
     @NotBlank
     private String confirmPassword;
 }
+>>>>>>> origin/main:src/main/java/com/universitymanagement/identity/auth/dto/request/RegisterRequest.java

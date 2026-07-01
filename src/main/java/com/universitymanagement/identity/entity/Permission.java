@@ -1,6 +1,7 @@
 package com.universitymanagement.identity.entity;
 
 
+import com.universitymanagement.auditing.BasedEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "permissions")
-public class Permission extends BaseEntity{
+public class Permission extends BasedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
