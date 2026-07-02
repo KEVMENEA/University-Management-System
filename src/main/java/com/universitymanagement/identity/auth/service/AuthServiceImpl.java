@@ -9,13 +9,15 @@ import com.universitymanagement.identity.auth.mapper.AuthMapper;
 import com.universitymanagement.identity.auth.mapper.UserMapper;
 import com.universitymanagement.identity.entity.AccountStatus;
 import com.universitymanagement.identity.entity.User;
-import com.universitymanagement.exception.DuplicateResourceException;
+import com.universitymanagement.identity.exception.DuplicateResourceException;
 import com.universitymanagement.identity.auth.keycloak.KeycloakAdminService;
 //import com.universitymanagement.identity.keycloak.KeycloakTokenService;
 import com.universitymanagement.identity.auth.keycloak.KeycloakTokenService;
 import com.universitymanagement.identity.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -46,13 +48,15 @@ public class AuthServiceImpl implements AuthService {
         if(userRepository.existsByEmail(request.getEmail())) {
             throw new DuplicateResourceException("Email already exists.");
         }
-
         // Step 3. Create Keycloak user
         String keycloakUserId = keycloakAdminService.createUser(request);
+        log.info("Keycloak user created successfully. id={}", keycloakUserId);
 
         // Step 4. Assign role defualt role
         keycloakAdminService.assignRole(keycloakUserId, "STUDENT");
+        log.info("Role assigned successfully.");
 
+        log.debug("Mapping request to User entity...");
 
         // Step 5. Save local database
 
@@ -63,8 +67,13 @@ public class AuthServiceImpl implements AuthService {
         user.setAccountStatus(AccountStatus.valueOf("ACTIVE"));
         user.setIsActive(true);
 
+
+
         // 7. Save
         User savedUser = userRepository.save(user);
+
+        log.info("User saved successfully. id={}", savedUser.getId());
+
 
         // 8. Return response
         return userMapper.toRegisterResponse(savedUser);
@@ -73,12 +82,6 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponse exchangeAuthorizationCode(String code, String codeVerifier) {
         return keycloakTokenService.exchangeAuthorizationCode(code, codeVerifier);
-    }
-
-    @Override
-    public LoginResponse login(LoginRequest request) {
-
-        return k;
     }
 
     @Override

@@ -18,7 +18,11 @@ public class RegisterResponse {
 
     private String email;
 
-    private String fullName;
+    private String username;
+
+    private String firstName;
+
+    private String lastName;
 
     private Boolean isActive;
 

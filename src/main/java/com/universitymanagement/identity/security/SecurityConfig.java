@@ -1,4 +1,4 @@
-package com.universitymanagement.security;
+package com.universitymanagement.identity.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

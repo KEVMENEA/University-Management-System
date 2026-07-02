@@ -8,8 +8,10 @@ import com.universitymanagement.identity.auth.dto.response.UserProfileResponse;
 import com.universitymanagement.identity.auth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
@@ -21,15 +23,17 @@ public class AuthController {
     public RegisterResponse register(
             @Valid @RequestBody RegisterRequest request
     ) {
+        log.info("Controller reached");
         return authService.register(request);
     }
 
-    @PostMapping("/login")
-    public LoginResponse login(
-            @Valid @RequestBody LoginRequest request
-    ) {
-        return authService.login(request);
-    }
+
+//    @PostMapping("/login")
+//    public LoginResponse login(
+//            @Valid @RequestBody LoginRequest request
+//    ) {
+//        return authService.login(request);
+//    }
 
     @PostMapping("/refresh-token")
     public RefreshTokenResponse refreshToken(

@@ -1,4 +1,4 @@
-package com.universitymanagement.minio;
+package com.universitymanagement.identity.minio;
 
 import org.springframework.web.multipart.MultipartFile;
 

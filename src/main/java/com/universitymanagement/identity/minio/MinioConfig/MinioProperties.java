@@ -1,4 +1,4 @@
-package com.universitymanagement.minio.MinioConfig;
+package com.universitymanagement.identity.minio.MinioConfig;
 
 import lombok.Getter;
 import lombok.Setter;

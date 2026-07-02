@@ -1,8 +1,8 @@
 package com.universitymanagement.identity.auth.keycloak;
 
-import com.universitymanagement.exception.InvalidAuthorizationCodeException;
-import com.universitymanagement.exception.InvalidRefreshTokenException;
-import com.universitymanagement.exception.KeycloakUnavailableException;
+import com.universitymanagement.identity.exception.InvalidAuthorizationCodeException;
+import com.universitymanagement.identity.exception.InvalidRefreshTokenException;
+import com.universitymanagement.identity.exception.KeycloakUnavailableException;
 import com.universitymanagement.identity.auth.dto.request.LogoutRequest;
 import com.universitymanagement.identity.auth.dto.request.RefreshTokenRequest;
 import com.universitymanagement.identity.auth.dto.response.LoginResponse;

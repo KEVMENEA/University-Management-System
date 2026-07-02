@@ -24,9 +24,7 @@ spring:
 
   logging:
     level:
-      org:
-        springframework:
-          security: DEBUG
+      org.springframework.security: TRACE
 
   jwt:
     auth:
@@ -43,12 +41,10 @@ keycloak:
   realm: University-Management
   client-id: identity-service
   client-secret: b1JQCK70CfqdWguqj0dDn3nvN22QaLvI
-  username: admin
-  password: admin
 
-
-minio:
-  endpoint: http://localhost:9000
-  access-key: minioadmin
-  secret-key: minioadmin
-  bucket: my-application-bucket
+#
+#minio:
+#  endpoint: http://localhost:9000
+#  access-key: minioadmin
+#  secret-key: minioadmin
+#  bucket: my-application-bucket

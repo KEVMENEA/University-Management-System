@@ -1,4 +1,4 @@
-package com.universitymanagement.exception;
+package com.universitymanagement.identity.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 

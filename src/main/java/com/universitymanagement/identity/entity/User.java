@@ -14,7 +14,8 @@ import java.util.UUID;
 @Table(name = "users")
 public class User extends AuditableEntity{
     @Id
-    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "user_id", updatable = false, nullable = false)
     private UUID id;
 
     @Column(name = "keycloak_id", nullable = false, unique = true)
@@ -23,8 +24,11 @@ public class User extends AuditableEntity{
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    private String fullName;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
 
     private String phone;
 

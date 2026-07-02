@@ -1,4 +1,4 @@
-package com.universitymanagement.exception;
+package com.universitymanagement.identity.exception;
 
 public class InvalidAuthorizationCodeException extends RuntimeException{
 
