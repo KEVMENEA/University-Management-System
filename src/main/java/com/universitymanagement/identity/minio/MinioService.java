@@ -6,8 +6,13 @@ import java.util.List;
 
 public interface MinioService {
     String getPreviewUrl(String objectName);
+<<<<<<< HEAD
+    String uploadFile(MultipartFile file);
+    List<String> getAllFileByMinio();
+=======
 
     String uploadFile(MultipartFile file);
 
     List<String> getAllFIleByMinio();
+>>>>>>> origin/main
 }
