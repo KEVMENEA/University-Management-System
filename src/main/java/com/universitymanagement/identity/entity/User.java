@@ -1,18 +1,13 @@
 package com.universitymanagement.identity.entity;
 
-<<<<<<< HEAD
+import com.fasterxml.jackson.core.JsonToken;
 import com.universitymanagement.auditing.BasedEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-=======
+import lombok.*;
 import jakarta.persistence.*;
->>>>>>> origin/main
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -24,7 +19,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity(name = "IdentityUser")
 @Table(name = "users")
-
+@Builder
 public class User extends BasedEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -37,16 +32,13 @@ public class User extends BasedEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-<<<<<<< HEAD
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
-=======
     @Column(name = "full_name", nullable = false)
     private String fullName;
->>>>>>> b0584b1008b3469c76c572e7034915ab635e4a1b
 
     private String phone;
 
@@ -61,5 +53,6 @@ public class User extends BasedEntity {
 
     @Column(name = "last_login")
     private LocalDateTime lastLogin;
+
 
 }

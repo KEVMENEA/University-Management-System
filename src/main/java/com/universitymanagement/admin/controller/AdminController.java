@@ -4,7 +4,6 @@ package com.universitymanagement.admin.controller;
 import com.universitymanagement.admin.dto.response.UserSummaryResponse;
 import com.universitymanagement.admin.service.UserManageService;
 import lombok.RequiredArgsConstructor;
-import org.jboss.resteasy.annotations.Status;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

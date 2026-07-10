@@ -27,7 +27,7 @@ public class AppGlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public RestErrorResponse<?>  handleValidation(MethodArgumentNotValidException e){
+    RestErrorResponse<?> handleValidation(MethodArgumentNotValidException e){
         List<FieldResponse> fields = new ArrayList<>();
         e.getFieldErrors().forEach(fieldError -> {
             fields.add(new FieldResponse(fieldError.getField(),fieldError.getDefaultMessage()));
@@ -51,5 +51,20 @@ public class AppGlobalExceptionHandler {
                 .errors(null)
                 .build();
         return new ResponseEntity<>(restErrorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler({
+            UserNotFoundException.class,
+            StudentNotFoundException.class
+    })
+    public ResponseEntity<RestErrorResponse<?>> handleNotFound(RuntimeException ex) {
+
+        RestErrorResponse<?> response = RestErrorResponse.builder()
+                .status(String.valueOf(HttpStatus.NOT_FOUND.value()))
+                .message(ex.getMessage())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+
     }
 }

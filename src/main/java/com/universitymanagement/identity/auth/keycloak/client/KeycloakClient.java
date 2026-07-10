@@ -10,6 +10,8 @@ public interface KeycloakClient {
 
     String createUser(UserRepresentation user);
 
+    void updateUser(String userId, UserRepresentation user);
+
     void deleteUser(String userId);
 
     void assignRealmRole(String userId, String roleName);
@@ -17,8 +19,6 @@ public interface KeycloakClient {
     UserRepresentation findUser(String username);
 
     UserRepresentation findUserById(String userId);
-
-    void updateUser(UserRepresentation user);
 
     void resetPassword(String userId, CredentialRepresentation credential);
 

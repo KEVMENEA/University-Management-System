@@ -1,4 +1,4 @@
-package com.universitymanagement.identity.dto.response;
+package com.universitymanagement.identity.auth.dto.response;
 
 import com.universitymanagement.identity.enums.RoleName;
 

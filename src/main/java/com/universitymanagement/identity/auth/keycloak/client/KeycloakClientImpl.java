@@ -1,20 +1,24 @@
 package com.universitymanagement.identity.auth.keycloak.client;
 
-import com.universitymanagement.identity.auth.keycloak.KeycloakAdminService;
 import com.universitymanagement.identity.auth.keycloak.config.KeycloakProperties;
 import com.universitymanagement.identity.exception.KeycloakOperationException;
 import jakarta.ws.rs.core.Response;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.CreatedResponseUtil;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
+
+@Slf4j
 @Service
 @AllArgsConstructor
 public class KeycloakClientImpl implements KeycloakClient{
@@ -33,32 +37,56 @@ public class KeycloakClientImpl implements KeycloakClient{
     }
 
     @Override
+    public void updateUser(String userId, UserRepresentation user) {
+        user(userId).update(user);
+    }
+    @Override
     public void deleteUser(String userId) {
-
+        user(userId).remove();
     }
 
     @Override
     public void assignRealmRole(String userId, String roleName) {
 
+        log.info("Assiging role e '{}' to user '{}'", roleName, userId);
+        log.info("Getting role...");
+        RoleRepresentation role = realm()
+                .roles()
+                .get(roleName)
+                .toRepresentation();
+
+        log.info("Role found: {}", role.getName());
+
+        log.info("Getting user...");
+
+        user(userId)
+                .roles()
+                .realmLevel()
+                .add(List.of(role));
+
     }
+
 
     @Override
     public UserRepresentation findUser(String username) {
-        return null;
+        List<UserRepresentation> users = users().search(username, true);
+
+        return users.stream()
+                .findFirst()
+                .orElseThrow(() ->
+                        new KeycloakOperationException(
+                                "User not found: " + username));
     }
 
     @Override
     public UserRepresentation findUserById(String userId) {
-        return null;
+        return user(userId).toRepresentation();
     }
 
-    @Override
-    public void updateUser(UserRepresentation user) {
-
-    }
 
     @Override
     public void resetPassword(String userId, CredentialRepresentation credential) {
+        user(userId).resetPassword(credential);
 
     }
 

@@ -1,57 +1,3 @@
-<<<<<<< HEAD
-minio:
-  endpoint: http://localhost:9000
-  access-key: admin
-  secret-key: password123
-  bucket: file
-
-spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          keycloak:
-            client-id: ratanak-demo
-            client-secret: ${KEYCLOAK_CLIENT_SECRET}
-            scope:
-              - openid
-              - profile
-              - email
-            authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
-
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8080/realms/university
-            user-name-attribute: preferred_username
-
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080/realms/university
-
-  datasource:
-    url: jdbc:postgresql://localhost:1681/university
-    username: postgres
-    password: ${DB_PASSWORD}
-    driver-class-name: org.postgresql.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-
-
-keycloak:
-  server-url: http://localhost:8080
-  realm: university
-  client-id: ratanak-demo
-  client-secret: ${KEYCLOAK_CLIENT_SECRET}
-server:
-  port: 8081
-=======
 
 spring:
   application:
@@ -61,54 +7,36 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: 123
-    url: jdbc:postgresql://localhost:5433/uml
+    url: jdbc:postgresql://15.235.209.49:1688/postgres
+    username: ratanak
+    password: YOUR_DATABASE_PASSWORD
+
+
   jpa:
     hibernate:
       ddl-auto: update
-
 
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8088/realms/University-Management
+          issuer-uri:  https://auth.careerpatch.site/realms/university
 
-
-  logging:
-    level:
-      org.springframework.security: TRACE
-
-  jwt:
-    auth:
-      converter:
-        resource-id: demo
-        principle-attribute: preferred_username
-
-
-server:
-  port: 8072
+logging:
+  level:
+    org.springframework.security: TRACE
 
 keycloak:
-  server-url: http://localhost:8088
-  realm: University-Management
+  server-url:  https://auth.careerpatch.site
+  realm: university
   client-id: identity-service
   client-secret: b1JQCK70CfqdWguqj0dDn3nvN22QaLvI
 
-<<<<<<< HEAD
-#
+
 #minio:
 #  endpoint: http://localhost:9000
 #  access-key: minioadmin
 #  secret-key: minioadmin
+server:
+  port: 8072
 #  bucket: my-application-bucket
-=======
-
-minio:
-  endpoint: http://localhost:9000
-  access-key: minioadmin
-  secret-key: minioadmin
-  bucket: my-application-bucket
->>>>>>> origin/main
->>>>>>> b0584b1008b3469c76c572e7034915ab635e4a1b

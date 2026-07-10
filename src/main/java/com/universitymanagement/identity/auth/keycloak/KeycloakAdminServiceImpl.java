@@ -3,6 +3,7 @@ package com.universitymanagement.identity.auth.keycloak;
 import com.universitymanagement.identity.auth.dto.response.UserProfileResponse;
 import com.universitymanagement.identity.auth.keycloak.Mapper.KeycloakMapper;
 import com.universitymanagement.identity.auth.keycloak.client.KeycloakClient;
+import com.universitymanagement.identity.auth.mapper.UserMapper;
 import com.universitymanagement.identity.exception.KeycloakOperationException;
 import com.universitymanagement.identity.exception.KeycloakRoleNotFoundException;
 import com.universitymanagement.identity.exception.KeycloakUserNotFoundException;
@@ -27,10 +28,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class KeycloakAdminServiceImpl  implements KeycloakAdminService {
 
-    private final Keycloak keycloak;
-    private final KeycloakProperties properties;
     private final KeycloakClient client;
     private final KeycloakMapper mapper;
+    private final UserMapper userMapper;
+
+//    validate Keycloak rules
 
     @Override
     public String createUser(RegisterRequest request) {
@@ -40,54 +42,47 @@ public class KeycloakAdminServiceImpl  implements KeycloakAdminService {
 
     @Override
     public void assignRole(String userId, String roleName) {
+        client.assignRealmRole(userId, roleName);
 
     }
 
     @Override
     public void resetPassword(String userId, String password) {
+        CredentialRepresentation credential = new CredentialRepresentation();
+        credential.setType(CredentialRepresentation.PASSWORD);
+        credential.setTemporary(false);
+        credential.setValue(password);
 
+        client.resetPassword(userId, credential);
     }
 
     @Override
     public void disableUser(String userId) {
+        UserRepresentation user = client.findUserById(userId);
+        user.setEnabled(false);
+        client.updateUser(userId, user);
 
+    }
+
+    @Override
+    public void enableUser(String userId) {
+        UserRepresentation user = client.findUserById(userId);
+        user.setEnabled(true);
+
+        client.updateUser(userId, user);
     }
 
     @Override
     public void deleteUser(String userId) {
-
+        client.deleteUser(userId);
     }
 
     @Override
     public UserProfileResponse getUser(String username) {
-        return null;
+        UserRepresentation user = client.findUser(username);
+        return userMapper.toResponse(user);
     }
 
 }
 
 
-
-//    @Override
-//    public String createUser(RegisterRequest request) {
-//        UserRepresentation user = new UserRepresentation();
-//        user.setUsername(request.getFullName());
-//        user.setEmail(request.getEmail());
-//        user.setEnabled(true);
-//        user.setEmailVerified(false);
-//
-//        CredentialRepresentation credential = new CredentialRepresentation();
-//        credential.setType(CredentialRepresentation.PASSWORD);
-//        credential.setValue(request.getPassword());
-//        credential.setTemporary(false);
-//        user.setCredentials(List.of(credential));
-//
-//        try (Response response = users().create(user)) {
-//            if (response.getStatus() != 201) {
-//                String body = response.readEntity(String.class);
-//                throw new KeycloakUserNotFoundException(
-//                        "Failed to create user, status=" + response.getStatus() + ", body=" + body
-//                );
-//            }
-//            return CreatedResponseUtil.getCreatedId(response);
-//        }
-//    }

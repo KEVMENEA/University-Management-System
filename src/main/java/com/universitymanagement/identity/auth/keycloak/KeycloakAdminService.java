@@ -16,6 +16,8 @@ public interface KeycloakAdminService {
 
     void disableUser(String userId);
 
+    void enableUser(String userId);
+
     void deleteUser(String userId);
 
     UserProfileResponse getUser(String username);

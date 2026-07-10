@@ -27,13 +27,13 @@ public class AuthController {
         return authService.register(request);
     }
 
+    @PostMapping("/login")
+    public LoginResponse login(
+            @Valid @RequestBody LoginRequest request
+    ) {
+        return authService.login(request);
+    }
 
-//    @PostMapping("/login")
-//    public LoginResponse login(
-//            @Valid @RequestBody LoginRequest request
-//    ) {
-//        return authService.login(request);
-//    }
 
     @PostMapping("/refresh-token")
     public RefreshTokenResponse refreshToken(
@@ -51,14 +51,14 @@ public class AuthController {
 
     @GetMapping("/profile")
     public UserProfileResponse getProfile() {
-        return authService.getProfile();
+        return authService.getCurrentUser();
     }
 
     @PutMapping("/profile")
     public UserProfileResponse updateProfile(
             @Valid @RequestBody UpdateProfileRequest request
     ) {
-        return authService.updateProfile(request);
+        return authService.updateUser(request);
     }
 
     @PutMapping("/change-password")

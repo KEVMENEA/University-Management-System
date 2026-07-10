@@ -17,7 +17,7 @@ import java.util.UUID;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AuditableEntity extends BaseEntity{
+public abstract class AuditableEntity{
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
