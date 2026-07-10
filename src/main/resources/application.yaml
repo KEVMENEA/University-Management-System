@@ -4,12 +4,11 @@ spring:
     name: universitymanagement
 
 
-
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://15.235.209.49:1688/postgres
     username: ratanak
-    password: YOUR_DATABASE_PASSWORD
+    password: Ratanak@16
 
 
   jpa:
@@ -29,8 +28,8 @@ logging:
 keycloak:
   server-url:  https://auth.careerpatch.site
   realm: university
-  client-id: identity-service
-  client-secret: b1JQCK70CfqdWguqj0dDn3nvN22QaLvI
+  client-id: university-api
+  client-secret: jn8qMZ0dNFMeVz8V8pWa2pVn8kEWE2Ts
 
 
 #minio:
@@ -38,5 +37,5 @@ keycloak:
 #  access-key: minioadmin
 #  secret-key: minioadmin
 server:
-  port: 8072
+  port: 9007
 #  bucket: my-application-bucket

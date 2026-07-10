@@ -3,6 +3,7 @@ package com.universitymanagement.admin.entity;
 
 import com.universitymanagement.auditing.BasedEntity;
 
+import com.universitymanagement.department.entity.Department;
 import com.universitymanagement.identity.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,10 +26,13 @@ public class Admin extends BasedEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", unique = true)
     private User user;
 
-    @Column(name = "admin_code", unique = true, nullable = false)
+    @Column(unique  = true)
     private String adminCode;
 
     private String position;
-    private String department;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
 }

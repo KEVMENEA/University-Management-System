@@ -1,12 +1,13 @@
 package com.universitymanagement.identity.auth.keycloak.config;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "infrastructure/keycloak")
 @Getter
 @Setter
+@ConfigurationProperties(prefix = "keycloak")
 public class KeycloakProperties {
 
     private String serverUrl;

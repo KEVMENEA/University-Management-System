@@ -2,8 +2,8 @@ package com.universitymanagement.student.entity;
 
 
 import com.universitymanagement.identity.entity.User;
-import com.universitymanagement.student.dto.GraduationStatus;
-import com.universitymanagement.student.program.Program;
+import com.universitymanagement.student.dto.request.GraduationStatus;
+import com.universitymanagement.program.Program;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Setter
@@ -62,5 +61,6 @@ public class Student {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "program_id")
     private Program program;
+
 
 }

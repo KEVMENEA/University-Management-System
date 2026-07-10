@@ -55,7 +55,8 @@ public class AppGlobalExceptionHandler {
 
     @ExceptionHandler({
             UserNotFoundException.class,
-            StudentNotFoundException.class
+            StudentNotFoundException.class,
+            DepartmentNotFoundException.class
     })
     public ResponseEntity<RestErrorResponse<?>> handleNotFound(RuntimeException ex) {
 

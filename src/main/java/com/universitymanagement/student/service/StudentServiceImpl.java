@@ -5,17 +5,17 @@ import com.universitymanagement.identity.exception.StudentNotFoundException;
 import com.universitymanagement.identity.exception.UserNotFoundException;
 import com.universitymanagement.identity.repository.UserRepository;
 import com.universitymanagement.security.config.currentuser.CurrentUserService;
-import com.universitymanagement.student.dto.StudentProfileResponse;
-import com.universitymanagement.student.dto.StudentUpdateProfileRequest;
+import com.universitymanagement.department.dto.response.DepartmentResponse;
+import com.universitymanagement.department.entity.Department;
+import com.universitymanagement.department.mapper.DepartmentMapper;
+import com.universitymanagement.student.dto.response.StudentProfileResponse;
+import com.universitymanagement.student.dto.request.StudentUpdateProfileRequest;
 import com.universitymanagement.student.entity.Student;
 import com.universitymanagement.student.mapper.StudentMapper;
 import com.universitymanagement.student.repository.StudentRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Currency;
 import java.util.UUID;
 
 @Service
@@ -26,6 +26,8 @@ public class StudentServiceImpl implements StudentService{
     private final UserRepository userRepository;
     private final CurrentUserService currentUser;
     private final StudentMapper studentMapper;
+    private final DepartmentMapper departmentMapper;
+
 
     @Override
     public StudentProfileResponse getMyProfile() {
@@ -35,7 +37,7 @@ public class StudentServiceImpl implements StudentService{
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
 
-        Student student = studentRepository.findByUser(UUID.randomUUID())
+        Student student = studentRepository.findByUserId(UUID.randomUUID())
                 .orElseThrow(() -> new StudentNotFoundException("Student not found"));
 
         return studentMapper.toProfileResponse(student);
@@ -50,7 +52,7 @@ public class StudentServiceImpl implements StudentService{
         User user = userRepository.findByKeycloakId(keycloakId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        Student student = studentRepository.findByUser(UUID.randomUUID())
+        Student student = studentRepository.findByUserId(UUID.randomUUID())
                 .orElseThrow(() -> new StudentNotFoundException("Student not found"));
 
         student.setFatherContact(request.getFatherContact());
@@ -61,5 +63,21 @@ public class StudentServiceImpl implements StudentService{
 
         return studentMapper.toProfileResponse(student);
 
+    }
+
+    @Override
+    public DepartmentResponse getMyDepartment() {
+
+        String keycloakId = currentUser.getKeycloakId();
+
+        User user = userRepository.findByKeycloakId(keycloakId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        Student student = studentRepository.findByUserId(user.getId())
+                .orElseThrow(() -> new StudentNotFoundException("Student not found"));
+
+        Department department = student.getProgram().getDepartmentId();
+
+        return departmentMapper.toResponse(department);
     }
 }
