@@ -107,7 +107,7 @@ public class UserManageServiceImpl implements UserManageService {
     @Transactional
     public void updateStatus(String userId, UpdateUserStatusRequest request) {
         User user = userRepository.findByKeycloakId(userId)
-                .orElse(() ->   new NotFoundException("User not found"));
+                .orElseThrow(() ->   new NotFoundException("User not found"));
 
         switch (request.getStatus()) {
             case ACTIVE -> service.enableUser(userId);

@@ -7,6 +7,7 @@ import com.universitymanagement.department.dto.request.UpdateDepartmentRequest;
 import com.universitymanagement.department.dto.response.DepartmentResponse;
 import com.universitymanagement.department.entity.Department;
 import com.universitymanagement.department.mapper.DepartmentMapper;
+import com.universitymanagement.identity.exception.ConflictException;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;

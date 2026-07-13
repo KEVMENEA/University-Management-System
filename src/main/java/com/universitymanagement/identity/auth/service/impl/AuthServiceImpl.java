@@ -1,11 +1,11 @@
 package com.universitymanagement.identity.auth.service.impl;
 
+import com.universitymanagement.admin.dto.AccountStatus;
 import com.universitymanagement.identity.auth.dto.request.*;
 import com.universitymanagement.identity.auth.dto.response.*;
 import com.universitymanagement.identity.auth.keycloak.KeycloakAdminService;
 import com.universitymanagement.identity.auth.mapper.AuthMapper;
 import com.universitymanagement.identity.auth.service.AuthService;
-import com.universitymanagement.identity.entity.AccountStatus;
 import com.universitymanagement.identity.entity.User;
 import com.universitymanagement.identity.repository.RefreshTokenRepository;
 import com.universitymanagement.identity.repository.UserRepository;

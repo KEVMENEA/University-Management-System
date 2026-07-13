@@ -1,6 +1,7 @@
 package com.universitymanagement.identity.entity;
 
 import com.fasterxml.jackson.core.JsonToken;
+import com.universitymanagement.admin.dto.AccountStatus;
 import com.universitymanagement.auditing.BasedEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
