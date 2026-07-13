@@ -21,7 +21,7 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getMyProfile());
     }
 
-    @PutMapping("/me")
+    @PatchMapping("/me")
     public ResponseEntity<StudentProfileResponse> updateProfile(
             @Valid @RequestBody StudentUpdateProfileRequest request) {
 

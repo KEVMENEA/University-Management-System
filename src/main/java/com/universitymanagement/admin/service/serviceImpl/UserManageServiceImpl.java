@@ -1,20 +1,23 @@
 package com.universitymanagement.admin.service.serviceImpl;
 
-import com.universitymanagement.admin.dto.response.UserSummaryResponse;
+import com.universitymanagement.admin.dto.UpdateUserStatusRequest;
+import com.universitymanagement.admin.dto.UserSummaryResponse;
 import com.universitymanagement.admin.mapper.AdminUserMapper;
 import com.universitymanagement.admin.service.UserManageService;
+import com.universitymanagement.identity.auth.dto.request.CreateUserRequest;
+import com.universitymanagement.identity.auth.dto.response.CreateUserResponse;
 import com.universitymanagement.identity.auth.keycloak.KeycloakAdminService;
-import com.universitymanagement.identity.auth.keycloak.client.KeycloakClient;
 import com.universitymanagement.identity.auth.keycloak.config.KeycloakProperties;
+import com.universitymanagement.identity.entity.User;
+import com.universitymanagement.identity.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.UserRepresentation;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,7 +32,7 @@ public class UserManageServiceImpl implements UserManageService {
     private final AdminUserMapper userMapper;
     private final KeycloakAdminService service;
     private final KeycloakProperties properties;
-
+    private final UserRepository userRepository;
 
 
     @Override
@@ -72,32 +75,6 @@ public class UserManageServiceImpl implements UserManageService {
     }
 
 
-    @Override
-    public void restoreUser(String id) {
-
-        UserResource userResource = keycloak.realm(properties.getRealm())
-                .users()
-                .get(id);
-
-        try {
-            UserRepresentation user = userResource.toRepresentation();
-
-            user.setEnabled(true);
-
-            // optional: remove soft delete flag
-            if (user.getAttributes() != null) {
-                user.getAttributes().remove("deleted");
-            }
-
-            userResource.update(user);
-
-        } catch (NotFoundException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "User not found with id: " + id
-            );
-        }
-    }
 
     @Override
     public UserSummaryResponse findUserById(String id) {
@@ -122,30 +99,27 @@ public class UserManageServiceImpl implements UserManageService {
     }
 
     @Override
-    public void disableUser(String id) {
+    public CreateUserResponse createUser(CreateUserRequest request) {
+        return null;
+    }
 
-        try {
+    @Override
+    @Transactional
+    public void updateStatus(String userId, UpdateUserStatusRequest request) {
+        User user = userRepository.findByKeycloakId(userId)
+                .orElse(() ->   new NotFoundException("User not found"));
 
-            UserResource userResource =
-                    keycloak.realm(properties.getRealm())
-                            .users()
-                            .get(id);
+        switch (request.getStatus()) {
+            case ACTIVE -> service.enableUser(userId);
 
-            UserRepresentation user = userResource.toRepresentation();
-
-            user.setEnabled(false);
-
-            user.singleAttribute("deleted", "true");
-
-            userResource.update(user);
-
-        } catch (NotFoundException ex) {
-
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "User not found."
-            );
+            case SUSPENDED, DISABLED ->
+                    service.disableUser(userId);
         }
+
+        user.setAccountStatus(request.getStatus());
+
+        userRepository.save(user);
+
     }
 
 

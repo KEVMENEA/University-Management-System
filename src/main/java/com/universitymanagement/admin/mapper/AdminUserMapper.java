@@ -1,6 +1,6 @@
 package com.universitymanagement.admin.mapper;
 
-import com.universitymanagement.admin.dto.response.UserSummaryResponse;
+import com.universitymanagement.admin.dto.UserSummaryResponse;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.mapstruct.Mapper;
 

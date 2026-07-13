@@ -49,12 +49,12 @@ public class AuthController {
         authService.logout(request);
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/me")
     public UserProfileResponse getProfile() {
         return authService.getCurrentUser();
     }
 
-    @PutMapping("/profile")
+    @PutMapping("/me/profile")
     public UserProfileResponse updateProfile(
             @Valid @RequestBody UpdateProfileRequest request
     ) {

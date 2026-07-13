@@ -103,8 +103,6 @@ public class AdminStudentServiceImpl implements AdminStudentService {
         student.setFatherContact(request.getFatherContact());
         student.setMotherContact(request.getMotherContact());
         student.setAddress(request.getAddress());
-        student.setGraduationDate(request.getGraduationDate());
-        student.setGraduationStatus(request.getGraduationStatus());
         student.setProgram(program);
 
         Student updatedStudent = studentRepository.save(student);

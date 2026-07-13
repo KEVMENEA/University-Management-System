@@ -9,9 +9,11 @@ import com.universitymanagement.student.dto.response.StudentDetailResponse;
 import com.universitymanagement.student.dto.response.StudentResponse;
 import com.universitymanagement.admin.service.AdminStudentService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -19,13 +21,11 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/admin/students")
+@RequiredArgsConstructor
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminStudentController {
 
     private final AdminStudentService adminStudentService;
-
-    public AdminStudentController(AdminStudentService adminStudentService) {
-        this.adminStudentService = adminStudentService;
-    }
 
     @GetMapping
     public Page<StudentSummaryResponse> searchStudents(

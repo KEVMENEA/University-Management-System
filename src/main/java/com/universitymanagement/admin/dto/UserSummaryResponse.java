@@ -1,4 +1,4 @@
-package com.universitymanagement.admin.dto.response;
+package com.universitymanagement.admin.dto;
 
 public record UserSummaryResponse(
         String id,
